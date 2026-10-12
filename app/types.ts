@@ -59,6 +59,7 @@ export interface OrderFormData {
   emailIdsCount: string;
 
   page2SpecialGuidelines: string;
+  specialCommitment: string;
 
   // Signatures
   clientSignatoryName: string;

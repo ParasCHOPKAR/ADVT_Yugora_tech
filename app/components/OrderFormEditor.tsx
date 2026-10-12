@@ -666,7 +666,19 @@ export default function OrderFormEditor({
                 value={data.page2SpecialGuidelines}
                 onChange={(e) => updateField("page2SpecialGuidelines", e.target.value)}
                 placeholder="Additional instructions for development milestones, DNS handover, deliverables..."
-                rows={3}
+                rows={2}
+                className="form-textarea"
+              />
+            </div>
+
+            {/* 7. Special Commitment */}
+            <div className="instruction-box-edit">
+              <h4>7. Special Commitment (Page 2 Last Section)</h4>
+              <textarea
+                value={data.specialCommitment}
+                onChange={(e) => updateField("specialCommitment", e.target.value)}
+                placeholder="Enter special commitments (e.g. 100% On-Time Delivery Guarantee, 3 Months Free Support, Dedicated Account Manager, SLA)..."
+                rows={2}
                 className="form-textarea"
               />
             </div>

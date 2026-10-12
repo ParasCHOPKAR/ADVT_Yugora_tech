@@ -145,6 +145,7 @@ export const INITIAL_FORM_DATA: OrderFormData = {
   emailIdsCount: "",
 
   page2SpecialGuidelines: "",
+  specialCommitment: "",
 
   clientSignatoryName: "",
   clientDesignation: "",
@@ -211,6 +212,8 @@ export const SAMPLE_FORM_DATA: OrderFormData = {
 
   page2SpecialGuidelines:
     "Weekly sprint review meetings every Tuesday. Staging server deployment required before final production DNS cutover.",
+  specialCommitment:
+    "100% On-Time Delivery Guarantee, 3 Months Complimentary Maintenance & Bug-Fix Support post deployment, Dedicated Technical Account Manager.",
 
   clientSignatoryName: "Vikramaditya Sharma",
   clientDesignation: "Managing Director & CEO",

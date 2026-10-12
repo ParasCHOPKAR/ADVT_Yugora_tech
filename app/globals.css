@@ -1457,11 +1457,30 @@ html, body {
 .si-guidelines-box {
   background: #edf2f7;
   border-radius: 3px;
-  padding: 4px 8px;
-  min-height: 38px;
-  font-size: 0.6rem;
+  padding: 3px 8px;
+  min-height: 24px;
+  font-size: 0.58rem;
   color: #334155;
-  line-height: 1.3;
+  line-height: 1.25;
+}
+
+/* Page 2 Special Commitment - Last Section */
+.commitment-card .commitment-title {
+  color: #b45309;
+  font-weight: 800;
+}
+
+.si-commitment-box {
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-left: 3px solid #f59e0b;
+  border-radius: 3px;
+  padding: 3px 8px;
+  min-height: 26px;
+  font-size: 0.58rem;
+  font-weight: 600;
+  color: #78350f;
+  line-height: 1.25;
 }
 
 .page2-signatures {

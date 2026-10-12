@@ -515,6 +515,16 @@ export default function PrintableDocument({
                 {data.page2SpecialGuidelines || "\u00A0"}
               </div>
             </div>
+
+            {/* 7. Special Commitment (Last section of Page 2) */}
+            <div className="special-instruction-card commitment-card">
+              <div className="si-card-title commitment-title">
+                Special Commitment :
+              </div>
+              <div className="si-commitment-box">
+                {data.specialCommitment || "\u00A0"}
+              </div>
+            </div>
           </div>
 
           {/* Page 2 Signatures */}
