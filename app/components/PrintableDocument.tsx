@@ -3,7 +3,6 @@
 import React from "react";
 import Image from "next/image";
 import {
-  Mail,
   Phone,
   Globe,
   CheckSquare,
@@ -46,8 +45,8 @@ export default function PrintableDocument({
                 <Image
                   src="/yugora-logo.png"
                   alt="YUGORA TECH Logo"
-                  width={56}
-                  height={56}
+                  width={48}
+                  height={48}
                   className="brand-logo-img"
                   priority
                 />
@@ -65,7 +64,8 @@ export default function PrintableDocument({
               <div className="header-title-wrap">
                 <div className="header-order-title">
                   ORDER <span className="text-highlight">Form</span>{" "}
-                  <span className="gold-pipe">|</span>
+                  <span className="gold-pipe">|</span>{" "}
+                  <span className="gold-co-name">YUGORA TECH</span>
                 </div>
                 <div className="header-tagline">{COMPANY_DETAILS.subtitle}</div>
               </div>
@@ -95,13 +95,9 @@ export default function PrintableDocument({
 
             {/* Sub-header Contact Strip */}
             <div className="header-contact-strip">
-              <div className="contact-item">
-                <Mail size={13} className="contact-icon" />
-                <span>{COMPANY_DETAILS.email}</span>
-              </div>
-              <div className="contact-item">
+              <div className="contact-item phone-only-item">
                 <Phone size={13} className="contact-icon" />
-                <span>{COMPANY_DETAILS.phone}</span>
+                <span className="phone-number-bold">+91 98902 31573</span>
               </div>
             </div>
           </div>

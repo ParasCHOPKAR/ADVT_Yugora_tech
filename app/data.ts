@@ -3,10 +3,10 @@ import { ServiceCategory, OrderFormData } from "./types";
 export const COMPANY_DETAILS = {
   name: "YUGORA TECH",
   tagline: "Next-Gen Digital, Enterprise & AI Technology Solutions",
-  subtitle: "Trusted Digital Transformation Partner",
+  subtitle: "Yugora Tech Digital & Software Solutions",
   email: "support@yugoratech.com",
   salesEmail: "sales@yugoratech.com",
-  phone: "+91 80072 31573 / +91 93091 41300",
+  phone: "+91 98902 31573",
   website: "www.yugoratech.com",
   address: "Innovation Tech Hub, Pune / Mumbai, Maharashtra, India",
 };

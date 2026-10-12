@@ -770,25 +770,27 @@ html, body {
   position: absolute;
   top: 0;
   right: 0;
-  left: 280px;
-  height: 90px;
+  left: 248px;
+  height: 92px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 22px 10px 10px;
+  padding: 10px 18px 10px 14px;
 }
 
 .header-title-wrap {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .header-order-title {
-  font-size: 1.55rem;
+  font-size: 1.32rem;
   font-weight: 800;
   color: #f59e0b;
-  letter-spacing: 0.04em;
-  line-height: 1.1;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  white-space: nowrap;
 }
 
 .header-order-title .text-highlight {
@@ -798,13 +800,21 @@ html, body {
 .gold-pipe {
   color: #f59e0b;
   font-weight: 900;
+  margin: 0 4px;
+}
+
+.gold-co-name {
+  color: #38bdf8;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
 }
 
 .header-tagline {
   font-size: 0.65rem;
   color: #cbd5e1;
   margin-top: 3px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.02em;
 }
 
@@ -853,13 +863,13 @@ html, body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 295px;
+  width: 242px;
   height: 92px;
   background: #ffffff;
-  border-bottom-right-radius: 54px;
+  border-bottom-right-radius: 36px;
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  padding-left: 16px;
   box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.08);
   z-index: 2;
 }
@@ -867,7 +877,7 @@ html, body {
 .brand-logo-wrap {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .brand-logo-img {
@@ -880,19 +890,19 @@ html, body {
 }
 
 .brand-title {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 800;
   color: #0070f3;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   line-height: 1.1;
 }
 
 .brand-slogan {
-  font-size: 0.44rem;
+  font-size: 0.41rem;
   font-weight: 700;
   color: #475569;
-  letter-spacing: 0.08em;
-  margin-top: 3px;
+  letter-spacing: 0.06em;
+  margin-top: 2px;
 }
 
 /* Sub-header contact strip */
@@ -906,20 +916,26 @@ html, body {
   display: flex;
   align-items: center;
   padding-left: 24px;
-  gap: 24px;
-  font-size: 0.64rem;
-  color: #f1f5f9;
-  font-weight: 500;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-.contact-item {
+.phone-only-item {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  font-size: 0.72rem;
+  color: #f8fafc;
 }
 
 .contact-icon {
   color: #f59e0b;
+}
+
+.phone-number-bold {
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
 }
 
 /* Generic Section Styles */
