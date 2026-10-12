@@ -16,7 +16,19 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "YUGORA TECH | Official Order Form & Service Agreement",
-  description: "Digital order form and contract agreement for YUGORA TECH services across Digital Presence, Digital Marketing, Software & Enterprise, and AI & Advanced Tech.",
+  description:
+    "Digital order form and contract agreement for YUGORA TECH services across Digital Presence, Digital Marketing, Software & Enterprise, and AI & Advanced Tech.",
+  icons: {
+    icon: [
+      { url: "/LOGO_FINAL.png", type: "image/png" },
+      { url: "/LOGO_FINAL.png", sizes: "32x32", type: "image/png" },
+      { url: "/LOGO_FINAL.png", sizes: "16x16", type: "image/png" },
+    ],
+    shortcut: "/LOGO_FINAL.png",
+    apple: [
+      { url: "/LOGO_FINAL.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
