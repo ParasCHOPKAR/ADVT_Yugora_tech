@@ -106,6 +106,8 @@ export const TERMS_AND_CONDITIONS = [
 export const INITIAL_FORM_DATA: OrderFormData = {
   formNo: "YT-2026-1048",
   date: new Date().toISOString().split("T")[0],
+  packageStartDate: new Date().toISOString().split("T")[0],
+  validityDate: "",
   totalPackage: "",
   advancePaid: "",
   balanceAmount: "",
@@ -157,6 +159,8 @@ export const INITIAL_FORM_DATA: OrderFormData = {
 export const SAMPLE_FORM_DATA: OrderFormData = {
   formNo: "YT-2026-0428",
   date: "2026-10-12",
+  packageStartDate: "2026-10-15",
+  validityDate: "2027-10-14",
   totalPackage: "1,85,000",
   advancePaid: "95,000",
   balanceAmount: "90,000",

@@ -10,6 +10,8 @@ import {
   Globe,
   DollarSign,
   Calendar,
+  CalendarRange,
+  CalendarCheck,
   FileText,
   CreditCard,
   PenTool,
@@ -122,6 +124,15 @@ export default function OrderFormEditor({
     }
   };
 
+  const applyValidityDuration = (months: number) => {
+    const baseDateStr = data.packageStartDate || data.date || new Date().toISOString().split("T")[0];
+    const d = new Date(baseDateStr);
+    d.setMonth(d.getMonth() + months);
+    d.setDate(d.getDate() - 1);
+    const result = d.toISOString().split("T")[0];
+    updateField("validityDate", result);
+  };
+
   const categoryIcons = [Globe, Search, Code2, Cpu];
 
   return (
@@ -176,29 +187,119 @@ export default function OrderFormEditor({
               </p>
             </div>
 
+            <div className="form-group">
+              <label>
+                <FileText size={14} /> Form Reference No :
+              </label>
+              <input
+                type="text"
+                value={data.formNo}
+                onChange={(e) => updateField("formNo", e.target.value)}
+                placeholder="e.g. YT-2026-1048"
+                className="form-input"
+              />
+            </div>
+
             <div className="input-grid-2">
               <div className="form-group">
-                <label>
-                  <FileText size={14} /> Form Reference No :
+                <label
+                  htmlFor="package-start-date-input"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    try {
+                      const el = document.getElementById("package-start-date-input") as HTMLInputElement | null;
+                      el?.showPicker?.();
+                    } catch {
+                      // ignore
+                    }
+                  }}
+                >
+                  <CalendarRange size={14} /> Start Date :
                 </label>
                 <input
-                  type="text"
-                  value={data.formNo}
-                  onChange={(e) => updateField("formNo", e.target.value)}
-                  placeholder="e.g. YT-2026-1048"
-                  className="form-input"
+                  id="package-start-date-input"
+                  type="date"
+                  value={data.packageStartDate}
+                  onChange={(e) => {
+                    updateField("packageStartDate", e.target.value);
+                    updateField("date", e.target.value);
+                  }}
+                  onClick={(e) => {
+                    try {
+                      e.currentTarget.showPicker?.();
+                    } catch {
+                      // ignore
+                    }
+                  }}
+                  className="form-input date-input-field"
                 />
               </div>
 
               <div className="form-group">
-                <label>
-                  <Calendar size={14} /> Agreement Date :
-                </label>
+                <div className="label-with-quick-actions">
+                  <label
+                    htmlFor="validity-date-input"
+                    style={{ cursor: "pointer", marginBottom: 0 }}
+                    onClick={() => {
+                      try {
+                        const el = document.getElementById("validity-date-input") as HTMLInputElement | null;
+                        el?.showPicker?.();
+                      } catch {
+                        // ignore
+                      }
+                    }}
+                  >
+                    <CalendarCheck size={14} /> Valid Till :
+                  </label>
+                  <div className="quick-duration-pills">
+                    <button
+                      type="button"
+                      onClick={() => applyValidityDuration(1)}
+                      className="btn-quick-duration"
+                      title="Set validity to 1 month"
+                    >
+                      +1M
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => applyValidityDuration(3)}
+                      className="btn-quick-duration"
+                      title="Set validity to 3 months"
+                    >
+                      +3M
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => applyValidityDuration(6)}
+                      className="btn-quick-duration"
+                      title="Set validity to 6 months"
+                    >
+                      +6M
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => applyValidityDuration(12)}
+                      className="btn-quick-duration"
+                      title="Set validity to 1 year"
+                    >
+                      +1Y
+                    </button>
+                  </div>
+                </div>
                 <input
+                  id="validity-date-input"
                   type="date"
-                  value={data.date}
-                  onChange={(e) => updateField("date", e.target.value)}
-                  className="form-input"
+                  value={data.validityDate}
+                  onChange={(e) => updateField("validityDate", e.target.value)}
+                  onClick={(e) => {
+                    try {
+                      e.currentTarget.showPicker?.();
+                    } catch {
+                      // ignore
+                    }
+                  }}
+                  className="form-input date-input-field"
+                  style={{ marginTop: "4px" }}
                 />
               </div>
             </div>
@@ -678,8 +779,9 @@ export default function OrderFormEditor({
                 value={data.specialCommitment}
                 onChange={(e) => updateField("specialCommitment", e.target.value)}
                 placeholder="Enter special commitments (e.g. 100% On-Time Delivery Guarantee, 3 Months Free Support, Dedicated Account Manager, SLA)..."
-                rows={2}
+                rows={6}
                 className="form-textarea"
+                style={{ minHeight: "140px" }}
               />
             </div>
           </div>

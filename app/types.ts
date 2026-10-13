@@ -15,6 +15,8 @@ export interface OrderFormData {
   // Header Meta
   formNo: string;
   date: string;
+  packageStartDate: string;
+  validityDate: string;
   totalPackage: string;
   advancePaid: string;
   balanceAmount: string;

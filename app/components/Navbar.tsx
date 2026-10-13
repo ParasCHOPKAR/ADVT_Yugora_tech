@@ -11,6 +11,7 @@ import {
   SlidersHorizontal,
   Columns,
   FileCheck2,
+  Loader2,
 } from "lucide-react";
 import { COMPANY_DETAILS } from "../data";
 
@@ -22,7 +23,8 @@ interface NavbarProps {
   onPrint: () => void;
   onLoadSample: () => void;
   onReset: () => void;
-  onExportJson: () => void;
+  onExportPdf: () => void;
+  isExporting?: boolean;
 }
 
 export default function Navbar({
@@ -33,7 +35,8 @@ export default function Navbar({
   onPrint,
   onLoadSample,
   onReset,
-  onExportJson,
+  onExportPdf,
+  isExporting = false,
 }: NavbarProps) {
   return (
     <header className="top-navbar no-print">
@@ -135,12 +138,17 @@ export default function Navbar({
 
         <button
           type="button"
-          onClick={onExportJson}
-          className="btn-nav-action ghost"
-          title="Download order details as JSON"
+          onClick={onExportPdf}
+          disabled={isExporting}
+          className="btn-nav-action export-pdf"
+          title="Download contract directly as high-resolution A4 PDF"
         >
-          <Download size={15} />
-          <span>Export</span>
+          {isExporting ? (
+            <Loader2 size={15} className="animate-spin" />
+          ) : (
+            <Download size={15} />
+          )}
+          <span>{isExporting ? "Exporting..." : "Export"}</span>
         </button>
 
         <button

@@ -49,6 +49,7 @@ export default function PrintableDocument({
                   height={48}
                   className="brand-logo-img"
                   priority
+                  unoptimized
                 />
                 <div className="brand-text-block">
                   <h1 className="brand-title">{COMPANY_DETAILS.name}</h1>
@@ -77,10 +78,20 @@ export default function PrintableDocument({
                   <span className="meta-value">{data.formNo || "YT-2026-____"}</span>
                 </div>
                 <div className="meta-row">
-                  <span className="meta-label">Date :</span>
+                  <span className="meta-label">Start Date :</span>
                   <span className="meta-value">
-                    {data.date
+                    {data.packageStartDate
+                      ? data.packageStartDate.split("-").reverse().join(" / ")
+                      : data.date
                       ? data.date.split("-").reverse().join(" / ")
+                      : "__ / __ / ____"}
+                  </span>
+                </div>
+                <div className="meta-row">
+                  <span className="meta-label">Valid Till :</span>
+                  <span className="meta-value">
+                    {data.validityDate
+                      ? data.validityDate.split("-").reverse().join(" / ")
                       : "__ / __ / ____"}
                   </span>
                 </div>
@@ -220,8 +231,16 @@ export default function PrintableDocument({
             </div>
 
             {/* Optional Financial Summary Strip if filled */}
-            {(data.advancePaid || data.balanceAmount) && (
+            {(data.advancePaid || data.balanceAmount || (data.packageStartDate && data.validityDate)) && (
               <div className="payment-financial-breakdown">
+                {data.packageStartDate && data.validityDate && (
+                  <div className="breakdown-tag period-tag">
+                    <span className="lbl">Validity Period:</span>
+                    <span className="val">
+                      {data.packageStartDate.split("-").reverse().join("/")} to {data.validityDate.split("-").reverse().join("/")}
+                    </span>
+                  </div>
+                )}
                 {data.advancePaid && (
                   <div className="breakdown-tag">
                     <span className="lbl">Advance Paid:</span>

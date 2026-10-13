@@ -7,12 +7,14 @@ import PrintableDocument from "./components/PrintableDocument";
 import { OrderFormData } from "./types";
 import { INITIAL_FORM_DATA, SAMPLE_FORM_DATA } from "./data";
 import { CheckCircle2, Info } from "lucide-react";
+import { exportDocumentToPdf } from "./utils/exportPdf";
 
 export default function Home() {
   const [formData, setFormData] = useState<OrderFormData>(SAMPLE_FORM_DATA);
   const [viewMode, setViewMode] = useState<"split" | "editor" | "preview">("split");
   const [pageTab, setPageTab] = useState<"both" | "page1" | "page2">("both");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isExporting, setIsExporting] = useState<boolean>(false);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -37,16 +39,35 @@ export default function Home() {
     }
   };
 
-  const handleExportJson = () => {
-    const jsonString = JSON.stringify(formData, null, 2);
-    const blob = new Blob([jsonString], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `Yugora_Tech_Order_${formData.formNo || "Form"}.json`;
-    link.click();
-    URL.revokeObjectURL(url);
-    showToast("Order exported as JSON file.");
+  const handleExportPdf = async () => {
+    if (isExporting) return;
+    setIsExporting(true);
+    showToast("Generating high-resolution PDF...");
+
+    try {
+      const sanitizedFormNo = (formData.formNo || "Contract").replace(
+        /[^a-zA-Z0-9_-]/g,
+        "_"
+      );
+      const tabSuffix =
+        pageTab === "page1"
+          ? "_Page1"
+          : pageTab === "page2"
+          ? "_Page2"
+          : "";
+      const filename = `Yugora_Tech_Order_${sanitizedFormNo}${tabSuffix}.pdf`;
+
+      await exportDocumentToPdf("pdf-export-container", {
+        filename,
+      });
+
+      showToast("PDF downloaded directly!");
+    } catch (error) {
+      console.error("PDF Export error:", error);
+      showToast("Could not generate PDF. You can also use Print / PDF.");
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   return (
@@ -60,7 +81,8 @@ export default function Home() {
         onPrint={handlePrint}
         onLoadSample={handleLoadSample}
         onReset={handleReset}
-        onExportJson={handleExportJson}
+        onExportPdf={handleExportPdf}
+        isExporting={isExporting}
       />
 
       {/* Toast Notification */}
@@ -99,6 +121,15 @@ export default function Home() {
             </div>
           </section>
         )}
+      </div>
+
+      {/* Dedicated off-screen high-fidelity stage for direct client-side PDF export */}
+      <div
+        id="pdf-export-container"
+        className="pdf-export-stage"
+        aria-hidden="true"
+      >
+        <PrintableDocument data={formData} activePageTab={pageTab} />
       </div>
 
       {/* Hidden printable target container for pure print media */}
