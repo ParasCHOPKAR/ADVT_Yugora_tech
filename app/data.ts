@@ -1,4 +1,4 @@
-import { ServiceCategory, OrderFormData } from "./types";
+import { ServiceCategory, OrderFormData, PricingPlan } from "./types";
 
 export const COMPANY_DETAILS = {
   name: "YUGORA TECH",
@@ -24,6 +24,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       { id: "ecommerce_website", label: "E-Commerce Website" },
       { id: "web_application", label: "Web Application" },
       { id: "ui_ux_design", label: "UI/UX Design" },
+      { id: "website_dev", label: "Website Development" },
     ],
   },
   {
@@ -73,6 +74,140 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       { id: "cyber_security", label: "Cyber Security" },
     ],
   },
+  {
+    id: "whatsapp_smart_connect",
+    number: "05",
+    title: "WHATSAPP & SMART CONNECT",
+    accentColor: "#10B981",
+    services: [
+      { id: "auto_whatsapp_call", label: "Auto WhatsApp After Call" },
+      { id: "whatsapp_chatbot", label: "WhatsApp Chatbot Automation" },
+      { id: "whatsapp_marketing", label: "WhatsApp Marketing" },
+      { id: "auto_sms_call", label: "Auto SMS After Call (100/day)" },
+      { id: "smart_digital_profile", label: "Smart Digital Business Profile" },
+      { id: "daily_promo_posts", label: "365 Days Daily Greeting Posts" },
+      { id: "smart_connect_qr", label: "Smart CONNECT QR (AI Review Kit)" },
+      { id: "unified_dashboard", label: "Unified Dashboard App" },
+    ],
+  },
+];
+
+export const PRICING_PLANS: PricingPlan[] = [
+  {
+    id: "starter",
+    name: "Starter",
+    price: 1499,
+    priceFormatted: "1,499",
+    period: "per year",
+    tagline: "Essential SMS & Branding Toolkit",
+    includedSummary: "Auto SMS after call (100/day), Smart Digital Business Card & mini-website, 365 daily posts",
+    serviceIds: ["auto_sms_call", "smart_digital_profile", "daily_promo_posts"],
+  },
+  {
+    id: "standard",
+    name: "Standard",
+    price: 4199,
+    priceFormatted: "4,199",
+    period: "per year",
+    tagline: "Starter + Auto WhatsApp After Call",
+    includedSummary: "Starter + Auto WhatsApp message after call with rich media (Text, Images, Videos, PDFs & Links)",
+    serviceIds: ["auto_sms_call", "smart_digital_profile", "daily_promo_posts", "auto_whatsapp_call"],
+  },
+  {
+    id: "advance",
+    name: "Advance",
+    price: 14199,
+    priceFormatted: "14,199",
+    period: "per year",
+    tagline: "Standard + WhatsApp Chatbot",
+    includedSummary: "Standard + 24x7 WhatsApp Chatbot automation with button flows, lead qualification & CRM integration",
+    serviceIds: ["auto_sms_call", "smart_digital_profile", "daily_promo_posts", "auto_whatsapp_call", "whatsapp_chatbot"],
+  },
+  {
+    id: "chatbot_standalone",
+    name: "WhatsApp Chatbot",
+    price: 9999,
+    priceFormatted: "9,999",
+    period: "per year",
+    tagline: "Dedicated WhatsApp Chatbot",
+    includedSummary: "Standalone WhatsApp chatbot automation, button menu, 24x7 automated replies & lead capture",
+    serviceIds: ["whatsapp_chatbot"],
+  },
+  {
+    id: "smart_qr_kit",
+    name: "Smart AI-Review QR Kit",
+    price: 3499,
+    priceFormatted: "3,499",
+    period: "per year",
+    tagline: "Google Review Booster with Standee & NFC",
+    includedSummary: "Review QR standee + Free NFC card, AI review suggestions, keyword dashboard, AI auto-replies",
+    serviceIds: ["smart_connect_qr"],
+  },
+  {
+    id: "business_growth",
+    name: "Business Growth",
+    price: 14999,
+    priceFormatted: "14,999",
+    period: "per year",
+    popular: true,
+    tagline: "All-in-One Growth Suite",
+    includedSummary: "Everything: Auto SMS, WhatsApp after call, digital card, 365 daily posts, chatbot & Smart AI-Review QR kit",
+    serviceIds: [
+      "auto_sms_call",
+      "smart_digital_profile",
+      "daily_promo_posts",
+      "auto_whatsapp_call",
+      "whatsapp_chatbot",
+      "smart_connect_qr",
+      "unified_dashboard",
+    ],
+  },
+];
+
+export const WHATSAPP_TRIGGER_OPTIONS = [
+  "Incoming Calls",
+  "Outgoing Calls",
+  "Missed Calls",
+];
+
+export const WHATSAPP_MEDIA_OPTIONS = [
+  "Text Message",
+  "Images / Posters",
+  "Videos",
+  "PDF Catalogs / Brochures",
+  "Web & Payment Links",
+];
+
+export const WHATSAPP_SIM_OPTIONS = [
+  "Both SIM 1 & SIM 2",
+  "SIM 1 Only",
+  "SIM 2 Only",
+];
+
+export const WHATSAPP_REPEAT_OPTIONS = [
+  "24 Hours (Once per day per caller)",
+  "12 Hours",
+  "6 Hours",
+  "2 Hours",
+  "Every Call (No delay)",
+];
+
+export const CHATBOT_FEATURE_OPTIONS = [
+  "24x7 Automated Replies",
+  "Button-based WhatsApp Automation",
+  "Smart Lead Qualification",
+  "Instant Product & Catalog Suggestions",
+  "Multi-Language Support",
+  "CRM, Payment & API Integrations",
+];
+
+export const SMART_REVIEW_KIT_OPTIONS = [
+  "Printed Acrylic QR Standee",
+  "Free Tap-to-Review NFC Card",
+  "AI SEO-Friendly Review Suggestions",
+  "Keyword Optimization Dashboard",
+  "AI Auto-Replies to Reviews",
+  "Auto-Removal of Posted Suggestions",
 ];
 
 export const PAYMENT_MODE_OPTIONS = [
@@ -89,17 +224,17 @@ export const TERMS_AND_CONDITIONS = [
   "2. The website/software will be placed on the signatory's domain name within one month of receiving the complete website matter, photos, designs, and so on, as well as receipt of the full payment.",
   "3. Please make sure that the website content, product information, and photos you provide are your own or properly licensed.",
   "4. If a legal dispute arises in the future, our company will not be held liable under any circumstances beyond the direct contractual project value.",
-  "5. If you do not renew your web package, server or maintenance after one year, we will not be responsible for domain names, website content, or mailing services.",
+  "5. If you do not renew your web package, server, WhatsApp automation or maintenance after one year, we will not be responsible for domain names, content, AI quotas, or mailing services.",
   "6. Any applicable government taxes or levies (including GST @ 18%) will be assessed as per statutory requirements.",
-  "7. Scope of Work: Yugora Tech agrees to provide website design, custom software engineering, and digital marketing services as detailed in the project proposal or agreement.",
-  "8. Client Responsibilities: The client agrees to provide all necessary materials, API credentials, branding, information, and approvals required for the timely completion of the project. Timely communication and feedback from the client are essential for project velocity.",
-  "9. Payment Terms: The client agrees to pay 50% of the total project cost as an upfront deposit before the commencement of work. Milestone payments will be specified in the project proposal, with the final payment due upon project delivery/deployment. Late payments may incur delay charges, and the Company reserves the right to suspend development or access until outstanding payments are cleared.",
-  "10. Intellectual Property: Upon receipt of full payment, the client will own the intellectual property rights to the custom source code and unique graphic assets. The Company retains the right to display non-confidential project highlights in its portfolio.",
-  "11. Timeline and Delays: A project timeline will be provided in the project proposal. Delays caused by the client in providing content or approvals may result in a proportional extension of delivery milestones.",
-  "12. Termination of Services: Either party may terminate the agreement in writing if the other party materially breaches its obligations. Termination fees covering work completed to date may apply.",
-  "13. Confidentiality: Both parties agree to keep all confidential business information, trade secrets, database schemas, and proprietary ideas exchanged during the project strictly confidential.",
-  "14. Hosting and Domain: If hosting and domain services are managed by the Company, the client agrees to adhere to the terms and acceptable use policies of the respective cloud/infrastructure providers.",
-  "15. Legal Compliance: The client is responsible for ensuring the website/app complies with applicable regional and international cyber, copyright, and consumer protection laws.",
+  "7. Scope of Work: Yugora Tech agrees to provide website design, custom software engineering, WhatsApp automation and digital marketing services as detailed in the project proposal.",
+  "8. Client Responsibilities: The client agrees to provide all necessary materials, API credentials, branding, information, and approvals required for the timely completion of the project.",
+  "9. WhatsApp & SMS Compliance: Auto SMS & WhatsApp automations are subject to Meta WhatsApp Business policies and regional telecom guidelines. Sending limit is within standard network quotas.",
+  "10. Smart AI Review Kit: The kit includes one printed QR standee and one NFC card. AI suggestions and review keyword dashboards remain active during the active subscription validity period.",
+  "11. Payment Terms: The client agrees to pay upfront deposit or package subscription before commencement of work. Milestone payments will be specified in the proposal.",
+  "12. Intellectual Property: Upon receipt of full payment, the client will own intellectual property rights to custom deliverables. Yugora Tech retains right to showcase non-confidential project highlights.",
+  "13. Timeline and Delays: A project timeline will be provided in proposal. Delays caused by the client in providing content may result in proportional milestone extensions.",
+  "14. Termination of Services: Either party may terminate the agreement in writing if the other party materially breaches its obligations. Termination fees covering work completed apply.",
+  "15. Confidentiality: Both parties agree to keep all confidential business information, trade secrets, database schemas, and customer contact numbers strictly confidential.",
   "16. Updates to Terms and Conditions: The Company reserves the right to update these terms and conditions. Clients will be notified in writing of any material amendments.",
 ];
 
@@ -113,6 +248,8 @@ export const INITIAL_FORM_DATA: OrderFormData = {
   balanceAmount: "",
   gstIncluded: false,
 
+  pricingPlan: "",
+
   companyName: "",
   fullName: "",
   address: "",
@@ -123,7 +260,7 @@ export const INITIAL_FORM_DATA: OrderFormData = {
 
   selectedServices: [],
 
-  paymentModes: ["NEFT"],
+  paymentModes: ["UPI / QR Code"],
   otherPaymentMode: "",
 
   specificGuidelines: "",
@@ -146,6 +283,30 @@ export const INITIAL_FORM_DATA: OrderFormData = {
   emailOptions: [],
   emailIdsCount: "",
 
+  // WhatsApp & Smart Connect Automation
+  whatsAppTriggers: ["Incoming Calls", "Outgoing Calls", "Missed Calls"],
+  whatsAppMediaTypes: ["Text Message", "Images / Posters", "PDF Catalogs / Brochures", "Web & Payment Links"],
+  whatsAppSimRules: "Both SIM 1 & SIM 2",
+  whatsAppRepeatGap: "24 Hours (Once per day per caller)",
+  whatsAppBlacklist: "Internal staff, personal family contacts, emergency numbers",
+  whatsAppLanguages: "English, Hindi, Regional Languages",
+  chatbotOptions: [
+    "24x7 Automated Replies",
+    "Button-based WhatsApp Automation",
+    "Smart Lead Qualification",
+    "Instant Product & Catalog Suggestions",
+  ],
+  smartReviewKitOptions: [
+    "Printed Acrylic QR Standee",
+    "Free Tap-to-Review NFC Card",
+    "AI SEO-Friendly Review Suggestions",
+    "Keyword Optimization Dashboard",
+    "AI Auto-Replies to Reviews",
+  ],
+  smartReviewGoogleLink: "",
+  smsDailyLimit: "100 SMS / Day (Sent from own SIM number)",
+  digitalProfileDays: "365 Days Daily Greeting & Promotional Posts",
+
   page2SpecialGuidelines: "",
   specialCommitment: "",
 
@@ -161,10 +322,12 @@ export const SAMPLE_FORM_DATA: OrderFormData = {
   date: "2026-10-12",
   packageStartDate: "2026-10-15",
   validityDate: "2027-10-14",
-  totalPackage: "1,85,000",
-  advancePaid: "95,000",
-  balanceAmount: "90,000",
+  totalPackage: "14,999",
+  advancePaid: "14,999",
+  balanceAmount: "0",
   gstIncluded: true,
+
+  pricingPlan: "Business Growth",
 
   companyName: "Nexus Enterprise Solutions Pvt Ltd",
   fullName: "Vikramaditya Sharma",
@@ -175,28 +338,28 @@ export const SAMPLE_FORM_DATA: OrderFormData = {
   gstNumber: "07AAACN1234F1ZX",
 
   selectedServices: [
+    "auto_whatsapp_call",
+    "whatsapp_chatbot",
+    "auto_sms_call",
+    "smart_digital_profile",
+    "daily_promo_posts",
+    "smart_connect_qr",
+    "unified_dashboard",
     "web_application",
     "ui_ux_design",
-    "ecommerce_website",
-    "seo_aeo_geo",
-    "google_ads",
-    "custom_software",
-    "api_integration",
-    "ai_chatbots",
-    "cloud_solutions",
   ],
 
-  paymentModes: ["NEFT", "RTGS"],
+  paymentModes: ["UPI / QR Code", "NEFT"],
   otherPaymentMode: "",
 
   specificGuidelines:
-    "1. Seamless integration with existing inventory database.\n2. Next.js App Router with ultra-fast page load score (95+ Lighthouse).\n3. AI Chatbot trained on internal product catalogue for automated lead capture.\n4. Complete brand guidelines and design system adherence.",
+    "1. Setup Auto WhatsApp message after incoming, outgoing & missed calls with brochure PDF.\n2. Configure 24x7 interactive button-based chatbot for instant lead capture and service quotation.\n3. Deploy Smart AI-Review QR Kit with printed Acrylic Standee & NFC card for reception desk.\n4. Enable Unified Dashboard App with daily branding toolkit for marketing team.",
 
   webDesignOptions: [
     "New Website / Web App Design",
     "Updation and Maintenance of live Website",
   ],
-  webTechStack: "Next.js 15, TypeScript, Tailwind/Vanilla CSS, PostgreSQL, AWS",
+  webTechStack: "Next.js 15, TypeScript, Tailwind/Vanilla CSS, Cloud WhatsApp API",
 
   seoOptions: ["SEO Pan India", "Citywise SEO", "Off Page Activity"],
   seoCountries: "India, UAE, Singapore",
@@ -206,7 +369,7 @@ export const SAMPLE_FORM_DATA: OrderFormData = {
   adLocation: "Pan-India Metro Cities & GCC Region",
   adMonthlyBudget: "₹ 50,000 / Month",
   adKeywordsText:
-    "Enterprise ERP Software, Cloud CRM solutions, AI Business Automation, Custom Software Development Company",
+    "Enterprise ERP Software, Cloud CRM solutions, WhatsApp Business Automation, AI Chatbot integration",
 
   youtubeOptions: ["Organic SEO", "Boosting Views"],
   aiCloudOptions: ["AI Chatbots", "Cloud Solutions", "API Integration"],
@@ -214,10 +377,41 @@ export const SAMPLE_FORM_DATA: OrderFormData = {
   emailOptions: ["G Suite / Google Workspace ID"],
   emailIdsCount: "15 Enterprise Business IDs",
 
+  // WhatsApp & Smart Connect Automation
+  whatsAppTriggers: ["Incoming Calls", "Outgoing Calls", "Missed Calls"],
+  whatsAppMediaTypes: [
+    "Text Message",
+    "Images / Posters",
+    "PDF Catalogs / Brochures",
+    "Web & Payment Links",
+  ],
+  whatsAppSimRules: "Both SIM 1 & SIM 2",
+  whatsAppRepeatGap: "24 Hours (Once per day per caller)",
+  whatsAppBlacklist: "Internal team (12 numbers), Vendor delivery contacts",
+  whatsAppLanguages: "English & Hindi (Auto-detect user language)",
+  chatbotOptions: [
+    "24x7 Automated Replies",
+    "Button-based WhatsApp Automation",
+    "Smart Lead Qualification",
+    "Instant Product & Catalog Suggestions",
+    "CRM, Payment & API Integrations",
+  ],
+  smartReviewKitOptions: [
+    "Printed Acrylic QR Standee",
+    "Free Tap-to-Review NFC Card",
+    "AI SEO-Friendly Review Suggestions",
+    "Keyword Optimization Dashboard",
+    "AI Auto-Replies to Reviews",
+    "Auto-Removal of Posted Suggestions",
+  ],
+  smartReviewGoogleLink: "g.page/r/nexus-enterprise-reviews",
+  smsDailyLimit: "100 SMS / Day (Sent from own SIM number)",
+  digitalProfileDays: "365 Days Daily Greeting & Promotional Posts",
+
   page2SpecialGuidelines:
-    "Weekly sprint review meetings every Tuesday. Staging server deployment required before final production DNS cutover.",
+    "Deploy WhatsApp Call Automation on executive Android devices. Provide printed QR standee at Noida HQ within 5 business days. Configure webhooks for lead CRM sync.",
   specialCommitment:
-    "100% On-Time Delivery Guarantee, 3 Months Complimentary Maintenance & Bug-Fix Support post deployment, Dedicated Technical Account Manager.",
+    "100% Delivery Guarantee: Full onboarding within 48 hours. Free replacement for NFC card during the 1-year subscription period. Dedicated account manager with priority WhatsApp technical support.",
 
   clientSignatoryName: "Vikramaditya Sharma",
   clientDesignation: "Managing Director & CEO",

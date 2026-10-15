@@ -5,9 +5,11 @@ import Image from "next/image";
 import {
   Phone,
   Globe,
-  CheckSquare,
-  Square,
   ShieldCheck,
+  Zap,
+  MessageSquare,
+  QrCode,
+  Tag,
 } from "lucide-react";
 import { OrderFormData } from "../types";
 import {
@@ -162,20 +164,30 @@ export default function PrintableDocument({
             </div>
           </div>
 
-          {/* SELECT YOUR SERVICES */}
+          {/* SELECT YOUR SERVICES (5 DIVISIONS) */}
           <div className="sheet-section services-selection-section">
             <div className="section-heading">
               <h2>SELECT YOUR SERVICES</h2>
               <div className="heading-accent-line"></div>
             </div>
 
-            {/* 4-Category Services Grid matching Image 4 */}
-            <div className="services-four-columns">
+            {/* 5-Category Services Grid */}
+            <div className="services-five-columns">
               {SERVICE_CATEGORIES.map((cat) => (
                 <div key={cat.id} className="service-category-col">
                   <div className="service-cat-header">
-                    <span className="cat-num">{cat.number}</span>
-                    <span className="cat-title">{cat.title}</span>
+                    <span
+                      className="cat-num"
+                      style={{ color: cat.accentColor }}
+                    >
+                      {cat.number}
+                    </span>
+                    <span
+                      className="cat-title"
+                      style={{ color: cat.accentColor }}
+                    >
+                      {cat.title}
+                    </span>
                   </div>
 
                   <div className="cat-services-list">
@@ -230,14 +242,25 @@ export default function PrintableDocument({
               })}
             </div>
 
-            {/* Optional Financial Summary Strip if filled */}
-            {(data.advancePaid || data.balanceAmount || (data.packageStartDate && data.validityDate)) && (
+            {/* Financial Summary Strip */}
+            {(data.advancePaid ||
+              data.balanceAmount ||
+              data.pricingPlan ||
+              (data.packageStartDate && data.validityDate)) && (
               <div className="payment-financial-breakdown">
+                {data.pricingPlan && (
+                  <div className="breakdown-tag plan-tag">
+                    <Tag size={12} className="tag-icon" />
+                    <span className="lbl">Plan:</span>
+                    <span className="val plan-val">{data.pricingPlan}</span>
+                  </div>
+                )}
                 {data.packageStartDate && data.validityDate && (
                   <div className="breakdown-tag period-tag">
-                    <span className="lbl">Validity Period:</span>
+                    <span className="lbl">Validity:</span>
                     <span className="val">
-                      {data.packageStartDate.split("-").reverse().join("/")} to {data.validityDate.split("-").reverse().join("/")}
+                      {data.packageStartDate.split("-").reverse().join("/")} to{" "}
+                      {data.validityDate.split("-").reverse().join("/")}
                     </span>
                   </div>
                 )}
@@ -266,7 +289,7 @@ export default function PrintableDocument({
           {/* Specific guidelines */}
           <div className="sheet-section guidelines-section">
             <div className="guidelines-title">
-              Specific guidelines, if any ( for Website, Software, Marketing & AI ) :
+              Specific guidelines, if any (for Website, Software, WhatsApp Automation &amp; AI) :
             </div>
             <div className="guidelines-content-box">
               {data.specificGuidelines ? (
@@ -333,11 +356,11 @@ export default function PrintableDocument({
         <section className="a4-sheet order-sheet-page2" id="order-form-page-2">
           {/* Page 2 Header */}
           <div className="page2-header-title">
-            <h2>TERMS &amp; CONDITION</h2>
+            <h2>TERMS &amp; CONDITIONS</h2>
             <div className="page2-divider-bar"></div>
           </div>
 
-          {/* 16 Contract Terms Clauses */}
+          {/* 16 Contract Terms Clauses in 2 compact columns */}
           <div className="terms-clauses-wrapper">
             <div className="terms-grid-paragraphs">
               {TERMS_AND_CONDITIONS.map((clause, idx) => (
@@ -354,11 +377,133 @@ export default function PrintableDocument({
             <div className="special-divider-line"></div>
           </div>
 
-          {/* Special Instructions Fields Grid */}
-          <div className="special-instructions-grid">
-            {/* 1. WEBSITE & SOFTWARE DESIGNING */}
+          {/* Special Instructions 2-Column Grid */}
+          <div className="special-instructions-grid-2col">
+            {/* 1. WHATSAPP CALL AUTOMATION */}
+            <div className="special-instruction-card whatsapp-card-accent">
+              <div className="si-card-title-row">
+                <span className="si-card-title">1. AUTO WHATSAPP AFTER CALL</span>
+                <span className="si-badge-tag">MAIN FEATURE</span>
+              </div>
+              <div className="si-chips-compact">
+                <span className="sub-lbl">Triggers:</span>
+                {["Incoming Calls", "Outgoing Calls", "Missed Calls"].map((trig) => (
+                  <span
+                    key={trig}
+                    className={`mini-check-chip ${
+                      data.whatsAppTriggers.includes(trig) ? "checked" : ""
+                    }`}
+                  >
+                    {data.whatsAppTriggers.includes(trig) ? "✓" : "○"} {trig}
+                  </span>
+                ))}
+              </div>
+              <div className="si-chips-compact mt-1">
+                <span className="sub-lbl">Media:</span>
+                {["Text", "Images", "PDF Brochure", "Videos", "Links"].map((m) => {
+                  const has = data.whatsAppMediaTypes.some((t) =>
+                    t.toLowerCase().includes(m.toLowerCase())
+                  );
+                  return (
+                    <span
+                      key={m}
+                      className={`mini-check-chip ${has ? "checked" : ""}`}
+                    >
+                      {has ? "✓" : "○"} {m}
+                    </span>
+                  );
+                })}
+              </div>
+              <div className="si-meta-subrow mt-1">
+                <div className="si-sub-item">
+                  <span className="lbl">SIM Rules:</span>
+                  <span className="val">{data.whatsAppSimRules || "Both SIMs"}</span>
+                </div>
+                <div className="si-sub-item">
+                  <span className="lbl">Repeat Gap:</span>
+                  <span className="val">{data.whatsAppRepeatGap || "24 Hours"}</span>
+                </div>
+              </div>
+              {data.whatsAppBlacklist && (
+                <div className="si-sub-item full mt-1">
+                  <span className="lbl">Blacklist / Exclude:</span>
+                  <span className="val">{data.whatsAppBlacklist}</span>
+                </div>
+              )}
+            </div>
+
+            {/* 2. WHATSAPP CHATBOT AUTOMATION */}
+            <div className="special-instruction-card whatsapp-card-accent">
+              <div className="si-card-title-row">
+                <span className="si-card-title">2. WHATSAPP CHATBOT AUTOMATION</span>
+                <span className="si-badge-tag">24×7 BOT</span>
+              </div>
+              <div className="si-chips-grid">
+                {[
+                  "24x7 Automated Replies",
+                  "Button-based Automation",
+                  "Smart Lead Qualification",
+                  "Instant Product Suggestions",
+                  "Multi-Language Support",
+                  "CRM & Payment Integration",
+                ].map((opt) => {
+                  const has = data.chatbotOptions.some((o) =>
+                    o.toLowerCase().includes(opt.slice(0, 10).toLowerCase())
+                  );
+                  return (
+                    <span
+                      key={opt}
+                      className={`mini-check-chip ${has ? "checked" : ""}`}
+                    >
+                      {has ? "✓" : "○"} {opt}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 3. SMART CONNECT QR (AI REVIEW KIT) */}
+            <div className="special-instruction-card qr-card-accent">
+              <div className="si-card-title-row">
+                <span className="si-card-title">3. SMART CONNECT QR (AI REVIEW KIT)</span>
+                <span className="si-badge-tag qr-tag">REPUTATION</span>
+              </div>
+              <div className="si-chips-grid">
+                {[
+                  "Printed QR Standee",
+                  "Free Tap NFC Card",
+                  "AI SEO Suggestions",
+                  "Keyword Dashboard",
+                  "AI Auto-Replies",
+                ].map((opt) => {
+                  const has = data.smartReviewKitOptions.some((o) =>
+                    o.toLowerCase().includes(opt.slice(0, 8).toLowerCase())
+                  );
+                  return (
+                    <span
+                      key={opt}
+                      className={`mini-check-chip ${has ? "checked" : ""}`}
+                    >
+                      {has ? "✓" : "○"} {opt}
+                    </span>
+                  );
+                })}
+              </div>
+              <div className="si-meta-subrow mt-1">
+                <div className="si-sub-item">
+                  <span className="lbl">Auto SMS:</span>
+                  <span className="val">{data.smsDailyLimit || "100 SMS / Day"}</span>
+                </div>
+                <div className="si-sub-item">
+                  <span className="lbl">Digital Profile:</span>
+                  <span className="val">{data.digitalProfileDays || "365 Days Posts"}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 4. WEBSITE & SOFTWARE DESIGNING */}
             <div className="special-instruction-card">
-              <div className="si-card-title">WEBSITE &amp; SOFTWARE DESIGNING</div>
+              <div className="si-card-title">4. WEBSITE &amp; SOFTWARE DESIGNING</div>
               <div className="si-checkboxes-row">
                 <div className="si-check-item">
                   <span className="custom-checkbox">
@@ -381,164 +526,128 @@ export default function PrintableDocument({
                       <span className="check-box-empty"></span>
                     )}
                   </span>
-                  <span>Updation and Maintenance of live Website</span>
+                  <span>Live Updation &amp; Support</span>
                 </div>
               </div>
               {data.webTechStack && (
-                <div className="si-text-field">
+                <div className="si-text-field mt-1">
                   <span className="lbl">Tech Stack:</span>
                   <span className="val">{data.webTechStack}</span>
                 </div>
               )}
             </div>
 
-            {/* 2. SEARCH ENGINE OPTIMIZATION */}
+            {/* 5. SEARCH ENGINE OPTIMIZATION (SEO / AEO) */}
             <div className="special-instruction-card">
-              <div className="si-card-title">SEARCH ENGINE OPTIMIZATION (SEO / AEO)</div>
-              <div className="si-checkboxes-row four-checks">
-                <div className="si-check-item">
-                  <span className="custom-checkbox">
-                    {data.seoOptions.includes("SEO Pan India") ? (
-                      <span className="check-box-checked">✓</span>
-                    ) : (
-                      <span className="check-box-empty"></span>
-                    )}
-                  </span>
-                  <span>SEO Pan India</span>
-                </div>
-                <div className="si-check-item">
-                  <span className="custom-checkbox">
-                    {data.seoOptions.includes("International SEO") ||
-                    data.seoOptions.includes("Internation SEO (Countries)") ? (
-                      <span className="check-box-checked">✓</span>
-                    ) : (
-                      <span className="check-box-empty"></span>
-                    )}
-                  </span>
-                  <span>
-                    International SEO{" "}
-                    {data.seoCountries ? `(${data.seoCountries})` : "(Countries)"}
-                  </span>
-                </div>
-                <div className="si-check-item">
-                  <span className="custom-checkbox">
-                    {data.seoOptions.includes("Citywise SEO") ? (
-                      <span className="check-box-checked">✓</span>
-                    ) : (
-                      <span className="check-box-empty"></span>
-                    )}
-                  </span>
-                  <span>Citywise SEO</span>
-                </div>
-                <div className="si-check-item">
-                  <span className="custom-checkbox">
-                    {data.seoOptions.includes("Off Page Activity") ? (
-                      <span className="check-box-checked">✓</span>
-                    ) : (
-                      <span className="check-box-empty"></span>
-                    )}
-                  </span>
-                  <span>Off Page Activity</span>
-                </div>
+              <div className="si-card-title">5. SEO / AEO GEOGRAPHY</div>
+              <div className="si-chips-compact">
+                {["SEO Pan India", "International SEO", "Citywise SEO", "Off Page Activity"].map(
+                  (opt) => (
+                    <span
+                      key={opt}
+                      className={`mini-check-chip ${
+                        data.seoOptions.includes(opt) ? "checked" : ""
+                      }`}
+                    >
+                      {data.seoOptions.includes(opt) ? "✓" : "○"} {opt}
+                    </span>
+                  )
+                )}
               </div>
+              {(data.seoCountries || data.seoCities) && (
+                <div className="si-meta-subrow mt-1">
+                  {data.seoCountries && (
+                    <div className="si-sub-item">
+                      <span className="lbl">Countries:</span>
+                      <span className="val">{data.seoCountries}</span>
+                    </div>
+                  )}
+                  {data.seoCities && (
+                    <div className="si-sub-item">
+                      <span className="lbl">Cities:</span>
+                      <span className="val">{data.seoCities}</span>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
-            {/* 3. GOOGLE ADWORDS & META ADS */}
+            {/* 6. GOOGLE ADWORDS & PAID CAMPAIGNS */}
             <div className="special-instruction-card">
-              <div className="si-card-title">GOOGLE ADWORDS &amp; PAID CAMPAIGNS</div>
-              <div className="si-fields-columns">
-                <div className="si-text-row">
-                  <span className="si-label">Number of Keywords :</span>
-                  <span className="si-fill-box">{data.adKeywordsCount || "\u00A0"}</span>
+              <div className="si-card-title">6. GOOGLE ADWORDS &amp; META ADS</div>
+              <div className="si-meta-subrow">
+                <div className="si-sub-item">
+                  <span className="lbl">Keywords:</span>
+                  <span className="val">{data.adKeywordsCount || "N/A"}</span>
                 </div>
-                <div className="si-text-row">
-                  <span className="si-label">Location :</span>
-                  <span className="si-fill-box">{data.adLocation || "\u00A0"}</span>
+                <div className="si-sub-item">
+                  <span className="lbl">Location:</span>
+                  <span className="val">{data.adLocation || "Target Market"}</span>
                 </div>
+                {data.adMonthlyBudget && (
+                  <div className="si-sub-item">
+                    <span className="lbl">Budget:</span>
+                    <span className="val">{data.adMonthlyBudget}</span>
+                  </div>
+                )}
               </div>
-              <div className="si-keywords-block">
-                <span className="si-label">Keywords / Strategy :</span>
-                <div className="si-keywords-box">
-                  {data.adKeywordsText || "\u00A0"}
+              {data.adKeywordsText && (
+                <div className="si-keywords-block mt-1">
+                  <span className="lbl">Strategy:</span>
+                  <div className="si-keywords-box-compact">
+                    {data.adKeywordsText}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
-            {/* 4. YOUTUBE & SOCIAL MEDIA PROMOTION */}
+            {/* 7. YOUTUBE, SOCIAL MEDIA & EMAIL WORKSPACES */}
             <div className="special-instruction-card">
-              <div className="si-card-title">YOUTUBE &amp; SOCIAL MEDIA PROMOTION</div>
-              <div className="si-checkboxes-row">
-                <div className="si-check-item">
-                  <span className="custom-checkbox">
-                    {data.youtubeOptions.includes("Organic SEO") ? (
-                      <span className="check-box-checked">✓</span>
-                    ) : (
-                      <span className="check-box-empty"></span>
-                    )}
-                  </span>
-                  <span>Organic SEO</span>
-                </div>
-                <div className="si-check-item">
-                  <span className="custom-checkbox">
-                    {data.youtubeOptions.includes("Boosting Views") ? (
-                      <span className="check-box-checked">✓</span>
-                    ) : (
-                      <span className="check-box-empty"></span>
-                    )}
-                  </span>
-                  <span>Boosting Views</span>
-                </div>
+              <div className="si-card-title">7. YOUTUBE &amp; EMAIL WORKSPACE</div>
+              <div className="si-chips-compact">
+                {["Organic SEO", "Boosting Views", "Pop ID", "G Suite / Workspace"].map(
+                  (opt) => {
+                    const has =
+                      data.youtubeOptions.includes(opt) ||
+                      data.emailOptions.some((e) =>
+                        e.toLowerCase().includes(opt.slice(0, 4).toLowerCase())
+                      );
+                    return (
+                      <span
+                        key={opt}
+                        className={`mini-check-chip ${has ? "checked" : ""}`}
+                      >
+                        {has ? "✓" : "○"} {opt}
+                      </span>
+                    );
+                  }
+                )}
               </div>
+              {data.emailIdsCount && (
+                <div className="si-sub-item mt-1">
+                  <span className="lbl">Mail Accounts:</span>
+                  <span className="val">{data.emailIdsCount}</span>
+                </div>
+              )}
             </div>
 
-            {/* 5. EMAIL POP ID'S & SERVICES */}
-            <div className="special-instruction-card">
-              <div className="si-card-title">EMAIL POP ID&apos;S &amp; SERVICES</div>
-              <div className="si-email-row">
-                <div className="si-check-item">
-                  <span className="custom-checkbox">
-                    {data.emailOptions.includes("Pop ID") ? (
-                      <span className="check-box-checked">✓</span>
-                    ) : (
-                      <span className="check-box-empty"></span>
-                    )}
-                  </span>
-                  <span>Pop ID</span>
-                </div>
-                <div className="si-check-item">
-                  <span className="custom-checkbox">
-                    {data.emailOptions.includes("G Suite ID") ||
-                    data.emailOptions.includes("G Suite / Google Workspace ID") ? (
-                      <span className="check-box-checked">✓</span>
-                    ) : (
-                      <span className="check-box-empty"></span>
-                    )}
-                  </span>
-                  <span>G Suite / Workspace ID</span>
-                </div>
-                <div className="si-text-row inline-count">
-                  <span className="si-label">Number of ID :</span>
-                  <span className="si-fill-box compact">{data.emailIdsCount || "\u00A0"}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* 6. Special Guidelines Page 2 */}
+            {/* 8. Special Guidelines */}
             <div className="special-instruction-card guidelines-card">
-              <div className="si-card-title">Special Guidelines :</div>
-              <div className="si-guidelines-box">
-                {data.page2SpecialGuidelines || "\u00A0"}
+              <div className="si-card-title">8. SPECIAL GUIDELINES</div>
+              <div className="si-guidelines-box-compact">
+                {data.page2SpecialGuidelines || "No specific customization notes."}
               </div>
             </div>
+          </div>
 
-            {/* 7. Special Commitment (Last section of Page 2) */}
-            <div className="special-instruction-card commitment-card">
-              <div className="si-card-title commitment-title">
-                Special Commitment :
-              </div>
-              <div className="si-commitment-box">
-                {data.specialCommitment || "\u00A0"}
-              </div>
+          {/* 9. Special Commitment - Full Width Band */}
+          <div className="special-commitment-band">
+            <div className="commitment-title-strip">
+              SPECIAL COMMITMENT &amp; SLA GUARANTEE :
+            </div>
+            <div className="commitment-text-box">
+              {data.specialCommitment ||
+                "100% On-Time Delivery Guarantee, 3 Months Complimentary Maintenance & Bug-Fix Support post deployment, Dedicated Technical Account Manager."}
             </div>
           </div>
 
